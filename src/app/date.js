@@ -1,6 +1,5 @@
 import { format, parse, isValid, getDay, getHours, getMinutes } from "date-fns";
 
-
 const dateSetter = () => {
     
     const addDueDate = (date, time) => {
