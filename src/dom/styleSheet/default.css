@@ -16,7 +16,6 @@
 .content {
     height: 100vh;
     width: 100%;
-    border: 5px solid darkred;
 }
 
 .content {
@@ -46,7 +45,7 @@
 
 .navBar {
     position: relative;
-    background-color: aquamarine;
+    background-color: whitesmoke;
     overflow: hidden;
 }
 
@@ -65,7 +64,7 @@
 .logoDiv {
     width: 50%;
     height: 130px;
-    margin: 50px 50px;
+    margin: 60px auto;
 }
 
 .logoDiv img {
@@ -85,6 +84,55 @@ ul li {
     margin-bottom: 20px;
     font-size: 1.5rem;
     color: black;
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid white;
     padding: 10px 0 0 20px;
 }
+
+
+.titleDiv {
+    position: fixed;
+    left: 25%;
+    top: 40%;
+}
+
+.titleDiv {
+    max-width: 50%;
+}
+
+.titleDiv h1 {
+    font-size: 3.5rem;
+    color: blue;
+    background-color: whitesmoke;
+    opacity: 0.5;
+    padding: 10px;
+}
+
+.titleDiv h2 {
+    font-size: 1.5rem;
+    padding: 30px 0 30px 10px;
+    line-height: 40px;
+}
+
+.titleDiv .buttonDiv {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.buttonDiv button {
+    width: 7rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(100, 100, 236);
+    cursor: pointer;
+}
+
+.buttonDiv button:nth-child(2) {
+    color: red;
+    background-color: whitesmoke;
+    border: 1px solid;
+    opacity: 0.5;
+}
+

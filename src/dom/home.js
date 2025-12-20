@@ -7,8 +7,7 @@ export const buildHomePageElement = (function() {
     const body = document.querySelector('body');
     body.className = 'open';
 
-    const getNavBar = () => {
-        const navBar = document.createElement('nav');
+    const navBar = document.createElement('nav');
         navBar.className = 'navBar';
 
         const cancelMenu = document.createElement('div')
@@ -41,11 +40,12 @@ export const buildHomePageElement = (function() {
         navBar.appendChild(ul);
         body.appendChild(navBar);
 
+
+    const getNavBar = () => {
         return navBar;
     }
-    
-    const getContent = () => {
-        const content = document.createElement('div');
+
+    const content = document.createElement('div');
         content.className = 'content';
 
         const menuTrigger = document.createElement('div');
@@ -54,7 +54,8 @@ export const buildHomePageElement = (function() {
         content.appendChild(menuTrigger);
 
         body.appendChild(content);
-
+    
+    const getContent = () => {
         return content;
     }
     
@@ -64,25 +65,64 @@ export const buildHomePageElement = (function() {
     }
 })();
 
-const renderHomePage = () => {
+
+const setNavClickHandlers = () => {
     const body = document.querySelector('body')
     const sideBar = buildHomePageElement.getNavBar();
     const content = buildHomePageElement.getContent();
-    const menu = document.querySelector('.menuTrigger');
-    console.log(menu)
-
+    const menuSvg = document.querySelector('.menuTrigger');
+    
     body.addEventListener('click', (e) => {
         const element = e.target;
           if (element.closest('.menuTrigger')) {
             body.classList.toggle('closed');
-            menu.classList.toggle('hidden');
+            menuSvg.classList.toggle('hidden');
         } else if (element.closest('.cancelMenu')) {
             body.classList.toggle('closed');
-            menu.classList.toggle('hidden');
-            
+            menuSvg.classList.toggle('hidden');            
+        } else if (element.classList.contains('menuButton')) {
+            body.classList.toggle('closed');
         }
     })
 } 
 
-export const homePage = renderHomePage();
+
+const setTextToContentDiv = () => {
+    const content = buildHomePageElement.getContent();
+    
+    const titleDiv = document.createElement('div');
+    titleDiv.className = 'titleDiv';
+
+    const title = document.createElement('h1');
+    title.className = 'title';
+    title.textContent = 'Greetings from TodoSite!';
+    titleDiv.appendChild(title);
+
+    const welcomeNote = document.createElement('h2');
+    welcomeNote.className = 'welcomeNote'
+    welcomeNote.textContent = "We're here to make your life easier. With our TodoApp, we can prioritize your professional life and activities efficiently and simplify your daily tasks";
+    titleDiv.appendChild(welcomeNote);
+
+    const buttonDiv = document.createElement('div');
+    buttonDiv.className = 'buttonDiv';
+
+    const buttons = [
+        'Menu',
+        'Explore'
+    ];
+    buttons.forEach((button) => {
+        const btn = document.createElement('button');
+        btn.textContent = button;
+        button === 'Menu' ? btn.className = 'menuButton' : btn.classList.remove();
+        buttonDiv.appendChild(btn);
+    })
+    titleDiv.appendChild(buttonDiv);
+
+    content.appendChild(titleDiv);
+};
+
+export const initialRender = () => {
+    setNavClickHandlers();
+    setTextToContentDiv();
+}
 
