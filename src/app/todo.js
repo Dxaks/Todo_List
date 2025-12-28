@@ -1,4 +1,4 @@
-import { allProject, createProject, saveToAllProject } from "./project";
+import { allProject, createProject, saveProjectToAllProject } from "./project";
 
 class Todo {
     constructor(title, description, dueDate, priority) {
@@ -14,15 +14,8 @@ Todo.prototype.isCompleted = false;
 
 export const createTodo = (project, title, description, dueDate, priority) => {
 
-    if (!allProject[project]) {
-        const newProject = createProject(project);
-        saveToAllProject(newProject);
-    }
-
     const todo = new Todo(title, description, dueDate, priority);
 
     allProject[project].todolist.push(todo)
-
-   
 }
 

@@ -4,12 +4,16 @@
     box-sizing: border-box;
 }
 
-.open {
+body {
+    position: relative;
+}
+
+.closed {
     display: grid;
     grid-template-columns: 0 1fr;
 }
 
-.open.closed {
+.closed.open {
     grid-template-columns: 1fr 4fr;   
 }
 
@@ -27,14 +31,16 @@
 }
 
 .menuTrigger {
+    position: absolute;
     width: fit-content;
     margin: 10px;
-    border: 1px solid whitesmoke;
+    border: 1px solid white;
+    z-index: 1000;
 
 }
 
 .menuTrigger svg {
-    fill: whitesmoke;
+    fill: white;
     width: 2.5rem;
     cursor: pointer;
 }

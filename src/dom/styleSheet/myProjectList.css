@@ -1,0 +1,124 @@
+.projectDiv {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+}
+
+.projectListDiv {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+ .projectListDiv .projectHeader {
+    width: 100%;
+    height: 100%;
+    margin-top: 0;
+    background-color: whitesmoke;
+}
+
+.projectListDiv ul {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 40px 40px;
+}
+
+.projectListDiv ul li {
+    background-color: rgb(182, 179, 179);
+    width: 80%;
+    height: fit-content;
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 20px;
+}
+
+.addSvgDiv {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin: 20px;
+    width: 4.5rem;
+    height: auto;
+    z-index: 10000;
+    background-color: rgb(98, 98, 233);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.addSvgDiv svg {
+    width: 100%;
+    fill: white;
+    padding: 5px;
+}
+
+
+/* **********************************dialog & form************************** */
+
+.projectListDiv dialog {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    height: 200px;
+    border: none;
+    border-radius: 20px;
+    background-color: rgb(182, 179, 179);
+}
+
+.projectListDiv dialog form {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+}
+
+.projectListDiv dialog form .inputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 20px;
+}
+
+dialog form .inputContainer input {
+    width: 80%;
+    height: 40px;
+    border: none;
+    border-radius: 20px;
+    padding: 10px;
+}
+
+dialog form .inputContainer button{
+    width: 6rem;
+    height: 30px;
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    background-color: rgb(98, 98, 233);
+}
+
+dialog form .cancel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 10px;
+}
+
+dialog form .cancel svg {
+    fill: white;
+    width: 2.0rem;
+}
+
+dialog form p {
+    text-align: center;
+    margin-top: 20px;
+    color: red;
+}
+
+

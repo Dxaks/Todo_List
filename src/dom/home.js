@@ -3,9 +3,9 @@ import { mySvgs } from "../assets/svgs/svg";
 import logo from "../assets/images/todo_logo.png";
 
 
-export const buildHomePageElement = (function() {
+const buildHomePageElement = (function() {
     const body = document.querySelector('body');
-    body.className = 'open';
+    body.classList.add('closed');
 
     const navBar = document.createElement('nav');
         navBar.className = 'navBar';
@@ -25,15 +25,17 @@ export const buildHomePageElement = (function() {
 
         const ul = document.createElement('ul');
         let navList = [
-            'nav 1',
+            'My Project',
             'nav 2',
             'nav 3',
             'nav 4',
         ];
         navList.forEach((list) => {
             const li = document.createElement('li');
+            let anotherClass = list.split(' ').join('');
             li.className = 'navList';
             li.textContent = list;
+            li.classList.add(anotherClass);
 
             ul.appendChild(li);
     })
@@ -51,7 +53,7 @@ export const buildHomePageElement = (function() {
         const menuTrigger = document.createElement('div');
         menuTrigger.className = 'menuTrigger';
         menuTrigger.innerHTML =  mySvgs.menuBar;
-        content.appendChild(menuTrigger);
+        body.appendChild(menuTrigger);
 
         body.appendChild(content);
     
@@ -75,13 +77,13 @@ const setNavClickHandlers = () => {
     body.addEventListener('click', (e) => {
         const element = e.target;
           if (element.closest('.menuTrigger')) {
-            body.classList.toggle('closed');
+            body.classList.toggle('open');
             menuSvg.classList.toggle('hidden');
         } else if (element.closest('.cancelMenu')) {
-            body.classList.toggle('closed');
+            body.classList.toggle('open');
             menuSvg.classList.toggle('hidden');            
         } else if (element.classList.contains('menuButton')) {
-            body.classList.toggle('closed');
+            body.classList.toggle('open');
         }
     })
 } 
