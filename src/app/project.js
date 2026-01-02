@@ -1,4 +1,4 @@
-// each project folder
+// object that hold each project folder
 export const allProject = {};
 
 // project blueprint
@@ -16,7 +16,7 @@ export function createProject(name) {
 } 
 
 export function saveProjectToAllProject(folder, project) {
-    if(!folder[project.name] ) {
+    if(!folder[project.name]) {
         folder[project.name] = project;
         return true
     } else{
@@ -28,7 +28,6 @@ export function saveProjectToAllProject(folder, project) {
 saveProjectToAllProject(allProject, createProject('work'));
 
 
-console.log(allProject)
 // export function saveProjectToAllProject(project) {
 
 //     let myProject = createProject(project);

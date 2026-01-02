@@ -4,6 +4,19 @@
     height: 100vh;
 }
 
+.cancel {
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin: 15px;
+}
+
+.cancel svg {
+    fill: gray;
+    width: 2.5rem;
+    cursor: pointer;
+}
+
 .projectListDiv {
     position: relative;
     width: 100%;
@@ -63,8 +76,8 @@
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
-    width: 450px;
-    height: 200px;
+    width: 500px;
+    height: 300px;
     border: none;
     border-radius: 20px;
     background-color: rgb(182, 179, 179);
@@ -72,6 +85,7 @@
 
 .projectListDiv dialog form {
     position: relative;
+    margin-top: 30px;
     width: 100%;
     min-height: 100%;
 }
@@ -103,14 +117,14 @@ dialog form .inputContainer button{
     background-color: rgb(98, 98, 233);
 }
 
-dialog form .cancel {
+dialog form .cancelDialog {
     position: absolute;
     top: 0;
     right: 0;
-    margin: 10px;
+    margin: 15px;
 }
 
-dialog form .cancel svg {
+dialog form .cancelDialog svg {
     fill: white;
     width: 2.0rem;
 }
@@ -118,7 +132,6 @@ dialog form .cancel svg {
 dialog form p {
     text-align: center;
     margin-top: 20px;
-    color: red;
 }
 
 

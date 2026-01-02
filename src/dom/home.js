@@ -32,10 +32,10 @@ const buildHomePageElement = (function() {
         ];
         navList.forEach((list) => {
             const li = document.createElement('li');
-            let anotherClass = list.split(' ').join('');
+            let concate = list.split(' ').join('');
             li.className = 'navList';
             li.textContent = list;
-            li.classList.add(anotherClass);
+            li.classList.add(concate);
 
             ul.appendChild(li);
     })
@@ -89,8 +89,9 @@ const setNavClickHandlers = () => {
 } 
 
 
-const setTextToContentDiv = () => {
+export const renderTextToContentDiv = () => {
     const content = buildHomePageElement.getContent();
+    content.innerHTML = '';
     
     const titleDiv = document.createElement('div');
     titleDiv.className = 'titleDiv';
@@ -125,6 +126,6 @@ const setTextToContentDiv = () => {
 
 export const initialRender = () => {
     setNavClickHandlers();
-    setTextToContentDiv();
+    renderTextToContentDiv();
 }
 

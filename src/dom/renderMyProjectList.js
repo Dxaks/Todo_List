@@ -1,6 +1,6 @@
 import "../dom/styleSheet/myProjectList.css";
 import { allProject } from "../app/project";
-import { clearDiv } from "../app/utils/utilities";
+import { cancelButton, clearDiv } from "../app/utils/utilities";
 import { mySvgs } from "../assets/svgs/svg";
 
 
@@ -24,6 +24,7 @@ export const renderProjectList = () => {
     
     for (const list of Object.values(allProject)) {
         const project = document.createElement('li')
+        project.className = 'projectList';
         project.textContent = list.name;
         projectHeader.appendChild(project);
     }
@@ -51,7 +52,7 @@ export const renderProjectList = () => {
     inputButton.className = 'saveButton'
     inputButton.textContent = 'save';
     const cancel = document.createElement('div')
-    cancel.className = 'cancel';
+    cancel.className = 'cancelDialog';
     cancel.innerHTML = mySvgs.closeMenu;
 
     inputContainer.appendChild(label); 
@@ -63,6 +64,8 @@ export const renderProjectList = () => {
 
     dialog.appendChild(projectForm);
     projectListDiv.appendChild(dialog);
+
+    cancelButton('.content', 'projectList');
 }
 
 
