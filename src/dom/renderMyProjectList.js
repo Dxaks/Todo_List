@@ -72,6 +72,9 @@ export const renderProjectList = () => {
 export const inputSaver = () => {
         const input = document.getElementById('inputField');
         const inputValue = input.value;
+        if (!inputValue) {
+            return
+        }
        return inputValue;
 }
 

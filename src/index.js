@@ -4,9 +4,10 @@ import { inputSaver, renderProjectList } from "./dom/renderMyProjectList";
 import { saveProjectToAllProject } from "./app/project";
 import { createProject } from "./app/project";
 import { errorLogger } from "./app/utils/utilities";
-import { renderTodoList, selected } from "./dom/renderTodoList";
-import {test} from "./app/todo";
+import { renderTodoList, selected, getFormInput, showFullTodoCard } from "./dom/renderTodoList";
+import {createTodo, test} from "./app/todo";
 import { cancelButton } from "./app/utils/utilities";
+import { renderTodoForm } from "./dom/renderTodoList";
 
 
 const EventHandlerSetter = () => {
@@ -50,7 +51,28 @@ const EventHandlerSetter = () => {
 
         if (element.closest('.projectList')) {
             renderTodoList(selected(elementContent));
+            projectTracker.update(element);
         }
+
+        if (element.classList.contains('addTodo')) {
+            renderTodoForm();
+        }
+
+        // creating todolist goes here!!!!
+        if (element.classList.contains('saveTodo')) {
+            const input = getFormInput('.formInput');
+            const projectName = projectTracker.getName();
+            createTodo(projectName, input[0], input[1], input[2], input[3]);
+            renderTodoList(selected(projectName));
+        }
+
+        // showing fullDetails of the todo goes here!!!
+
+        if (element.closest('.todoRow')) {
+            const projectName = projectTracker.getName();
+            const tableRowId = element.dataset.Id;
+            showFullTodoCard(projectName, tableRowId)
+        };
     })
 
     // set cancel Button
@@ -74,5 +96,21 @@ const EventHandlerSetter = () => {
 EventHandlerSetter()
 
 
+function getProject() {
 
+    let projectName = null;
 
+    return {
+        update(element) {
+            if (element.classList.contains('projectList')) {
+                projectName = element.textContent;
+                return true;
+            } else {return false}
+        },
+        getName() {
+            return projectName;
+        }
+    }
+}
+
+ const projectTracker = getProject();

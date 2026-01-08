@@ -42,9 +42,12 @@ export const renderTodoList = (todoArray) => {
     
     todoArray.forEach(todo => {
         const tableRow = document.createElement('tr');
+        tableRow.className = 'todoRow';
+        tableRow.dataset.Id = todo.id;
+
       for (const field of headData) {
         const td = document.createElement('td');
-        let value= todo[field];
+        let value = todo[field];
         value ? td.textContent = value : '';
         tableRow.appendChild(td);
       }    
@@ -54,16 +57,18 @@ export const renderTodoList = (todoArray) => {
     todoDiv.appendChild(table)
     body.appendChild(todoDiv);
 
-    const addTodoDiv = document.createElement('button');
-    addTodoDiv.textContent = 'Add Todo';
-    todoDiv.appendChild(addTodoDiv);
+    const addTodoButton = document.createElement('button');
+    addTodoButton.className = 'addTodo'
+    addTodoButton.textContent = 'Add Todo';
+    todoDiv.appendChild(addTodoButton);
     
     cancelButton('.content', 'todoList');
 };
 
-const renderTodoForm = () => {
+// form for adding todo list
+export const renderTodoForm = () => {
 
-    clearDiv('content');
+    clearDiv('.content');
 
     const body = document.querySelector('.content');
     const formDiv = document.createElement('div');
@@ -71,5 +76,91 @@ const renderTodoForm = () => {
 
     const form = document.createElement('form');
 
+    const formData = ['title', 'description', 'dueDate', 'priority'];
+
+    formData.forEach((value) => {
+        let label = document.createElement('label');
+        label.setAttribute('for', value);
+        label.textContent = value.toUpperCase();
+
+        let input = document.createElement('input');
+        input.id = value;
+        input.className = 'formInput';
+
+        if (value === 'description') {
+            input.setAttribute('type', 'textArea');
+        } else if (value === 'dueDate') {
+            input.setAttribute('type', 'date');
+        } else {
+            input.setAttribute('type', 'text');
+        };
+        
+        form.appendChild(label);
+        form.appendChild(input);
+
+        formDiv.appendChild(form);
+        body.appendChild(formDiv)
+    });
+
+    const formButton = document.createElement('button')
+    formButton.className = 'saveTodo';
+    formButton.textContent = 'Add';
+    form.appendChild(formButton);
+};
+
+
+// input saver from the form above
+export const getFormInput = (selectors) => {
+    const formInputs = [];
+    const inputs = document.querySelectorAll(selectors);
+    for (let i = 0; i < inputs.length; i++) {
+        formInputs.push(inputs[i].value)
+    }
+    return formInputs
+}
+
+
+// show full card Details from the table in a dialog
+export const showFullTodoCard = (projectName, dataId) => {
+    const targetTodo = allProject[projectName].todolist;
+    
+    let fullDetails = targetTodo.find((todo) => {
+        return (todo.id === dataId);
+    })
+
+    const fields = [
+        ['Tilte', fullDetails.title],
+        ['Tilte', fullDetails.description],
+        ['Tilte', fullDetails.dueDate],
+        ['Tilte', fullDetails.priority],
+        ['Tilte', fullDetails.isCompleted ? 'completed' : 'uncompleted']
+    ];
+
+    const todoDialog = document.createElement('dialog');
+    todoDialog.className = 'showFullTodo';
+
+    fields.forEach((field) => {
+
+        const para = document.createElement('p');
+        
+        let label = field[0];
+        let value = field[1];
+
+        para.textContent = `${label}: ${value}`;
+        todoDialog.appendChild(para)
+    })
+
+    const body = document.querySelector('body')
+    body.appendChild(todoDialog);
+
+    showTodoDialog()
+};
+
+function showTodoDialog() {
+
+    const dialog = document.querySelector('.showFullTodo');
+
+    dialog.showModal();
 
 }
+
