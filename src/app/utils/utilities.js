@@ -1,6 +1,7 @@
 import { mySvgs } from "../../assets/svgs/svg";
 import { renderTextToContentDiv } from "../../dom/home";
 import { renderProjectList } from "../../dom/renderMyProjectList";
+import { allProject } from "../project";
 
 export const clearDiv = (containerToClear) => {
     const container = document.querySelector(containerToClear);
@@ -24,5 +25,13 @@ export const cancelButton = (containerSelector, dataAction) => {
 
     const div = document.querySelector(containerSelector)
     div.appendChild(cancelDiv);
+};
+
+export const setTodoAsCompeleted = (projectName, dataId) => {
+    let todofolder = allProject[projectName].todolist;
+    const targetTodo = todofolder.find((todo) => {
+        return todo.id === dataId
+    })
+    targetTodo.setAsCompleted();
 };
 

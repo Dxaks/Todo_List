@@ -35,13 +35,13 @@ body {
     position: absolute;
     width: fit-content;
     margin: 10px;
-    border: 1px solid white;
+    border: 1px solid grey;
     z-index: 1000;
 
 }
 
 .menuTrigger svg {
-    fill: white;
+    fill: grey;
     width: 2.5rem;
     cursor: pointer;
 }

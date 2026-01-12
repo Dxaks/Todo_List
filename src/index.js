@@ -6,7 +6,7 @@ import { createProject } from "./app/project";
 import { errorLogger } from "./app/utils/utilities";
 import { renderTodoList, selected, getFormInput, showFullTodoCard } from "./dom/renderTodoList";
 import {createTodo, test} from "./app/todo";
-import { cancelButton } from "./app/utils/utilities";
+import { setTodoAsCompeleted } from "./app/utils/utilities";
 import { renderTodoForm } from "./dom/renderTodoList";
 
 
@@ -15,7 +15,36 @@ const EventHandlerSetter = () => {
     document.addEventListener('DOMContentLoaded', initialRender);
     const navBar = document.querySelector('.navBar');
     const content = document.querySelector('.content');
+    const body = document.querySelector('body');
    
+
+    body.addEventListener('click', (e) => {
+        
+        const element = e.target;
+
+         if (element.classList.contains('toggleTodoAsCompleted')) {
+            
+            if (element.checked) {
+               
+                const projectName = projectTracker.getName();
+                
+                const todoId = projectTracker.getId();
+               
+                setTodoAsCompeleted(projectName, todoId)
+                renderTodoList(selected(projectName))
+            } else if (!element.checked) {
+                const projectName = projectTracker.getName();
+                
+                const todoId = projectTracker.getId();
+               
+                setTodoAsCompeleted(projectName, todoId)
+                renderTodoList(selected(projectName))
+
+            }
+        }
+    })
+
+
     navBar.addEventListener('click', (e) => {
         e.preventDefault();
         const element = e.target;
@@ -27,7 +56,7 @@ const EventHandlerSetter = () => {
 
 
     content.addEventListener('click', (e) => {
-        e.preventDefault();
+        // e.preventDefault();
         const element = e.target;
         const elementContent = e.target.textContent;
        
@@ -67,24 +96,26 @@ const EventHandlerSetter = () => {
         }
 
         // showing fullDetails of the todo goes here!!!
-
         if (element.closest('.todoRow')) {
             const projectName = projectTracker.getName();
-            const tableRowId = element.dataset.Id;
-            showFullTodoCard(projectName, tableRowId)
+            const row = element.closest('.todoRow');
+            const tableRowId = row.dataset.id;
+            console.log(tableRowId);
+
+            showFullTodoCard(projectName, tableRowId);
+            projectTracker.updateId(element)
         };
+
     })
 
     // set cancel Button
     content.addEventListener('click', (e) => {
         const element = e.target.closest('.cancel');
-
         if (!element) {
             return
         }
 
         const elementData = element.dataset.action;
-
         if (elementData === 'projectList') {
             renderTextToContentDiv();
         } else if (elementData === 'todoList') {
@@ -97,10 +128,18 @@ EventHandlerSetter()
 
 
 function getProject() {
-
     let projectName = null;
-
+    let projectId = null;
     return {
+        updateId(element) {
+            if(element.closest('.todoRow')) {
+                const row = element.closest('.todoRow');
+                projectId = row.dataset.id;
+            }
+        },
+        getId() {
+            return projectId;
+        },
         update(element) {
             if (element.classList.contains('projectList')) {
                 projectName = element.textContent;
