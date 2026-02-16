@@ -5,19 +5,13 @@ module.exports = {
   entry: './src/index.js',
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.js',
     clean: true,
   },
-  mode: 'development',
   plugins: [
     new HtmlWebpackPlugin({
     template: "./src/template.html"
   })
  ],
- devtool: "eval-source-map",
-  devServer: {
-    watchFiles: ["./src/template.html"],
-  },
  module: {
         rules: [
             {
