@@ -1,4 +1,4 @@
-export const setPriority = (priorityChoice) => {
+export const setPriority = () => {
 
     let priorityList = [
         'less-important',
@@ -6,9 +6,16 @@ export const setPriority = (priorityChoice) => {
         'urgent'
     ];
 
-    return priorityList.find(priority => priority === priorityChoice)
-    
-}
+    const priorityOption = () => {
+        return priorityList;
+    };
+
+    return {
+        priorityOption,
+    };
+};
+
+export const priorityList = setPriority()
 
 export const changePriority = (projectFolder, todoTitle, choice) => {
 

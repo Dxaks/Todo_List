@@ -24,10 +24,11 @@ const buildHomePageElement = (function() {
         logoDiv.appendChild(logoImage);
 
         const ul = document.createElement('ul');
+        ul.className = 'navContainer'
         let navList = [
             'My Project',
-            'nav 2',
-            'nav 3',
+            'Scheduled',
+            'Over Due',
             'nav 4',
         ];
         navList.forEach((list) => {

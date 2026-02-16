@@ -3,11 +3,13 @@ import { initialRender, renderTextToContentDiv } from "./dom/home";
 import { inputSaver, renderProjectList } from "./dom/renderMyProjectList";
 import { saveProjectToAllProject } from "./app/project";
 import { createProject } from "./app/project";
-import { errorLogger } from "./app/utils/utilities";
-import { renderTodoList, selected, getFormInput, showFullTodoCard } from "./dom/renderTodoList";
-import {createTodo, test} from "./app/todo";
-import { setTodoAsCompeleted } from "./app/utils/utilities";
+import { renderTodoList, selected, getFormInput, showFullTodoCard, renderUpdateForm } from "./dom/renderTodoList";
+import { createTodo } from "./app/todo";
+import { date } from "./app/date";
+import { setTodoAsCompeleted, errorLogger, removeTodo, todoUpdater } from "./app/utils/utilities";
 import { renderTodoForm } from "./dom/renderTodoList";
+import { renderAllScheduleTodo } from "./dom/scheduledTodo";
+import { filterOverDue } from "./dom/renderOverDue";
 
 
 const EventHandlerSetter = () => {
@@ -18,29 +20,58 @@ const EventHandlerSetter = () => {
     const body = document.querySelector('body');
    
 
-    body.addEventListener('click', (e) => {
+    body.addEventListener('click', (e) => {  
         
         const element = e.target;
+
+        const preventDefaultBahavior = element.classList.contains('toggleTodoAsCompleted') 
+        || element.classList.contains('updateTodo');
+
+        if (!preventDefaultBahavior) {
+            e.preventDefault()
+        }
 
          if (element.classList.contains('toggleTodoAsCompleted')) {
             
             if (element.checked) {
-               
                 const projectName = projectTracker.getName();
-                
                 const todoId = projectTracker.getId();
                
                 setTodoAsCompeleted(projectName, todoId)
                 renderTodoList(selected(projectName))
+                dialogCloser('.showFullTodo')
+
             } else if (!element.checked) {
                 const projectName = projectTracker.getName();
-                
                 const todoId = projectTracker.getId();
-               
                 setTodoAsCompeleted(projectName, todoId)
                 renderTodoList(selected(projectName))
-
             }
+        }
+
+        if (element.classList.contains('deleteTodo')) {
+            const projectName = projectTracker.getName();
+            const todoId = projectTracker.getId();
+            removeTodo(projectName, todoId);
+            renderTodoList(selected(projectName));
+        }
+
+        if (element.classList.contains('updateBtn')) {
+            const projectName = projectTracker.getName();
+            const projectId = projectTracker.getId();
+            const todoToUpdate = todoUpdater.getTodo(projectName, projectId);
+            renderUpdateForm(todoToUpdate);
+        }
+
+        if (element.classList.contains('updateTodo')) {
+            const formInput = getFormInput('.updateInput');
+            let title = formInput[0];
+            let description = formInput[1];
+            let dueDate = date.setDate(formInput[2]);
+            let priority = formInput[3];
+            
+            todoUpdater.updateTodo(title, description, dueDate, priority);
+            renderTodoList(selected(projectTracker.getName()))
         }
     })
 
@@ -51,7 +82,11 @@ const EventHandlerSetter = () => {
         
         if (element.closest('.MyProject')) {
             renderProjectList();
-        }
+        } else if (element.closest('.Scheduled')) {
+            renderAllScheduleTodo(allProject);
+        } else if (element.closest('.OverDue')) {
+            filterOverDue(allProject);
+        } 
     });
 
 
@@ -89,9 +124,14 @@ const EventHandlerSetter = () => {
 
         // creating todolist goes here!!!!
         if (element.classList.contains('saveTodo')) {
-            const input = getFormInput('.formInput');
             const projectName = projectTracker.getName();
-            createTodo(projectName, input[0], input[1], input[2], input[3]);
+            let input = getFormInput('.formInput');
+            let title = input[0];
+            let description = input[1];
+            let dueDate = date.setDate(input[2]);
+            let priority = input[3];
+
+            createTodo(projectName, title, description, dueDate, priority);
             renderTodoList(selected(projectName));
         }
 
@@ -100,26 +140,38 @@ const EventHandlerSetter = () => {
             const projectName = projectTracker.getName();
             const row = element.closest('.todoRow');
             const tableRowId = row.dataset.id;
-            console.log(tableRowId);
-
             showFullTodoCard(projectName, tableRowId);
-            projectTracker.updateId(element)
+            projectTracker.updateId(element);
         };
-
     })
 
     // set cancel Button
     content.addEventListener('click', (e) => {
+
         const element = e.target.closest('.cancel');
+
         if (!element) {
             return
         }
 
         const elementData = element.dataset.action;
+        console.log(elementData)
+
         if (elementData === 'projectList') {
             renderTextToContentDiv();
         } else if (elementData === 'todoList') {
             renderProjectList();
+        }
+        else if (elementData === 'todoForm') {
+            const projectName = projectTracker.getName();
+            renderTodoList(selected(projectName));
+        } 
+
+        // this logic is for closing a dialog
+        const dialog = element.closest('dialog');
+        if (dialog) {
+            dialog.close();
+            dialog.remove();
         }
     })
 }

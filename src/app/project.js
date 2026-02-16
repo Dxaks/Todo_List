@@ -26,28 +26,8 @@ export function saveProjectToAllProject(folder, project) {
 }
 
 saveProjectToAllProject(allProject, createProject('work'));
+saveProjectToAllProject(allProject, createProject('school'));
+saveProjectToAllProject(allProject, createProject('home'));
 
 
-// export function saveProjectToAllProject(project) {
-
-//     let myProject = createProject(project);
-
-//     allProject[myProject.name] = myProject;
-// }
-
-// console.log(saveProjectToAllProject("Work"));
-
-// // function to create a new project
-// export const createProject = (name) => {
-//     return new Project(name);
-// }
-
-// // function to save the newly created project in allproject
-// export const saveToAllProject = (project) => {
-//     allProject[project.name] = project;
-// }
-
-
-// const work = createProject('Work');
-// saveToAllProject(work);
 
