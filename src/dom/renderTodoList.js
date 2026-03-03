@@ -98,6 +98,7 @@ export const renderTodoForm = () => {
         let input = document.createElement('input');
         input.id = value;
         input.className = 'formInput';
+        input.required = true;
 
         if (value === 'description') {
             input.setAttribute('type', 'textArea');
@@ -137,6 +138,7 @@ export const renderTodoForm = () => {
     const formButton = document.createElement('button')
     formButton.className = 'saveTodo';
     formButton.textContent = 'Add';
+    formButton.setAttribute('type', 'submit');
     form.appendChild(formButton);
 
     cancelButton('.todoForm', 'todoForm');
@@ -157,11 +159,12 @@ export const getFormInput = (selectors) => {
 // show full card Details from the table in a dialog
 export const showFullTodoCard = (projectName, dataId) => {
     const targetTodo = allProject[projectName].todolist;
- 
+    console.log(targetTodo)
     let fullDetails = targetTodo.find((todo) => {
+        console.log(todo.id)
         return (todo.id === dataId);
     })
-
+    console.log(fullDetails)
     const fields = [
         ['Tilte', fullDetails.title],
         ['Description', fullDetails.description],

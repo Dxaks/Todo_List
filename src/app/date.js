@@ -9,8 +9,9 @@ const dateSetter = () => {
 
 
    const setDate = (dateString) => {
-        const dateParser = parse(dateString, 'yyyy-MM-dd', new Date());
-        return dueDate = format(dateParser, 'dd/MM/yyyy');
+     if(!dateString) return;
+     const dateParser = parse(dateString, 'yyyy-MM-dd', new Date());
+     return dueDate = format(dateParser, 'dd/MM/yyyy');
    }
 
    const checkDueDate = (date) => {

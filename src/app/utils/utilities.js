@@ -1,4 +1,5 @@
 import { mySvgs } from "../../assets/svgs/svg";
+import { populateStorage } from "../myStorage";
 import { allProject } from "../project";
 
 export const clearDiv = (containerToClear) => {
@@ -8,10 +9,14 @@ export const clearDiv = (containerToClear) => {
 
 export const errorLogger = (div, comment) => {
     const container = document.querySelector(div);
-    container.innerHTML = '';
+
+    const firstPara = document.querySelector(`${div} p`);
+    if (firstPara) {
+        return
+    }
     const para = document.createElement('p');
     para.textContent = comment;
-    container.appendChild(para)
+    container.appendChild(para);
 };
 
 export const cancelButton = (containerSelector, dataAction) => {
@@ -29,6 +34,7 @@ export const setTodoAsCompeleted = (projectName, dataId) => {
         return todo.id === dataId
     })
     targetTodo.setAsCompleted();
+    populateStorage();
 };
 
 export const removeTodo = (projectName, dataId) => {
@@ -36,6 +42,7 @@ export const removeTodo = (projectName, dataId) => {
     const targetTodo = todoFolder.findIndex(todo => todo.id === dataId);
     if(targetTodo !== -1) {
         todoFolder.splice(targetTodo, 1)
+        populateStorage()
     }
 };
 
@@ -61,7 +68,9 @@ const updater = () => {
         targetTodo.title = title;
         targetTodo.description = description;
         targetTodo.dueDate = dueDate;
-        targetTodo.priority = priority
+        targetTodo.priority = priority;
+
+        populateStorage()
     }
 
     return {

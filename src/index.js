@@ -1,10 +1,10 @@
-import { allProject } from "./app/project";
+import { allProject, Project } from "./app/project";
 import { initialRender, renderTextToContentDiv } from "./dom/home";
 import { inputSaver, renderProjectList } from "./dom/renderMyProjectList";
 import { saveProjectToAllProject } from "./app/project";
 import { createProject } from "./app/project";
 import { renderTodoList, selected, getFormInput, showFullTodoCard, renderUpdateForm } from "./dom/renderTodoList";
-import { createTodo } from "./app/todo";
+import { createTodo, Todo } from "./app/todo";
 import { date } from "./app/date";
 import { setTodoAsCompeleted, errorLogger, removeTodo, todoUpdater } from "./app/utils/utilities";
 import { renderTodoForm } from "./dom/renderTodoList";
@@ -12,9 +12,41 @@ import { renderAllScheduleTodo } from "./dom/scheduledTodo";
 import { filterOverDue } from "./dom/renderOverDue";
 
 
+function rebuildObject() {
+
+    const myStoredObject = localStorage.getItem('allProjectFolder');
+    const resumeProject = JSON.parse(myStoredObject);
+
+    for (let projectName in resumeProject) {
+        const projectData = resumeProject[projectName];
+        const projectInstances = new Project(projectData.name);
+
+        projectData.todolist.forEach(todo => {
+           const todoInstances = new Todo(todo.title, todo.description, todo.dueDate, todo.priority);
+           projectInstances.todolist.push(todoInstances);
+        });
+        allProject[projectName] = projectInstances;
+    };
+};
+
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    initialRender();
+
+    const storedObject = localStorage.getItem('allProjectFolder');
+    if (storedObject) {
+        rebuildObject();
+    } else {
+        saveProjectToAllProject(allProject, createProject('work'));
+        saveProjectToAllProject(allProject, createProject('school'));
+        saveProjectToAllProject(allProject, createProject('home'));
+        }
+})
+
+
 const EventHandlerSetter = () => {
 
-    document.addEventListener('DOMContentLoaded', initialRender);
     const navBar = document.querySelector('.navBar');
     const content = document.querySelector('.content');
     const body = document.querySelector('body');
@@ -25,7 +57,7 @@ const EventHandlerSetter = () => {
         const element = e.target;
 
         const preventDefaultBahavior = element.classList.contains('toggleTodoAsCompleted') 
-        || element.classList.contains('updateTodo');
+        || element.classList.contains('updateTodo') || element.classList.contains('formInput');
 
         if (!preventDefaultBahavior) {
             e.preventDefault()
@@ -39,7 +71,6 @@ const EventHandlerSetter = () => {
                
                 setTodoAsCompeleted(projectName, todoId)
                 renderTodoList(selected(projectName))
-                dialogCloser('.showFullTodo')
 
             } else if (!element.checked) {
                 const projectName = projectTracker.getName();
@@ -91,7 +122,7 @@ const EventHandlerSetter = () => {
 
 
     content.addEventListener('click', (e) => {
-        // e.preventDefault();
+        
         const element = e.target;
         const elementContent = e.target.textContent;
        

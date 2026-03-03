@@ -1,4 +1,5 @@
 {
     "editor.autoIndent": "advanced",
-    "editor.autoIndentOnPaste": true
+    "editor.autoIndentOnPaste": true,
+    "liveServer.settings.port": 5501
 }
