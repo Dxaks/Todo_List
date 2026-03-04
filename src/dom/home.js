@@ -29,7 +29,7 @@ const buildHomePageElement = (function() {
             'My Project',
             'Scheduled',
             'Over Due',
-            'nav 4',
+            'Settings',
         ];
         navList.forEach((list) => {
             const li = document.createElement('li');
