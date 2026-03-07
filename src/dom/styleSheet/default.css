@@ -1,155 +1,152 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    position: relative;
+  position: relative;
 }
 
 .closed {
-    display: grid;
-    grid-template-columns: 0 1fr;
+  display: grid;
+  grid-template-columns: 0 1fr;
 }
 
 .closed.open {
-    grid-template-columns: 1fr 4fr;   
+  grid-template-columns: 1fr 4fr;
 }
 
 .content {
-    position: relative;
-    height: 100vh;
-    width: 100%;
+  position: relative;
+  height: 100vh;
+  width: 100%;
 }
 
 .content {
-    background-image: url(../../assets/images/contentBackground.png);
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-color: lightblue;
+  background-image: url(../../assets/images/contentBackground.png);
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-color: lightblue;
 }
 
 .menuTrigger {
-    position: absolute;
-    width: fit-content;
-    margin: 10px;
-    border: 1px solid grey;
-    z-index: 1000;
-
+  position: absolute;
+  width: fit-content;
+  margin: 10px;
+  border: 1px solid grey;
+  z-index: 1000;
 }
 
 .menuTrigger svg {
-    fill: grey;
-    width: 2.5rem;
-    cursor: pointer;
+  fill: grey;
+  width: 2.5rem;
+  cursor: pointer;
 }
 
 .menuTrigger.hidden {
-    display: none;
+  display: none;
 }
 
 .navBar {
-    position: relative;
-    background-color: whitesmoke;
-    overflow: hidden;
+  position: relative;
+  background-color: whitesmoke;
+  overflow: hidden;
 }
 
 .cancelMenu {
-    position: absolute;
-    right: 0;
-    margin: 10px;
+  position: absolute;
+  right: 0;
+  margin: 10px;
 }
 
 .cancelMenu svg {
-    fill: gray;
-    width: 2.5rem;
-    cursor: pointer;
+  fill: gray;
+  width: 2.5rem;
+  cursor: pointer;
 }
 
 .logoDiv {
-    width: 50%;
-    height: 130px;
-    margin: 60px auto;
+  width: 50%;
+  height: 130px;
+  margin: 60px auto;
 }
 
 .logoDiv img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: cover;
-    object-position: center;
-    aspect-ratio: calc(2/2);
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover;
+  object-position: center;
+  aspect-ratio: calc(2 / 2);
 }
 
 .navContainer {
-    margin-top: 30px;
+  margin-top: 30px;
 }
 
 .navContainer .navList {
-    list-style: none;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-    color: black;
-    border-bottom: 2px solid white;
-    padding: 10px 0 0 20px;
+  list-style: none;
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+  color: black;
+  border-bottom: 2px solid white;
+  padding: 10px 0 0 20px;
 }
 
 .navContainer li:hover {
-    background-color: gray;
-    cursor: pointer;
-    color: white;
-}
-
-
-.titleDiv {
-    position: fixed;
-    left: 25%;
-    top: 40%;
+  background-color: gray;
+  cursor: pointer;
+  color: white;
 }
 
 .titleDiv {
-    max-width: 50%;
+  position: fixed;
+  left: 25%;
+  top: 40%;
+}
+
+.titleDiv {
+  max-width: 50%;
 }
 
 .titleDiv h1 {
-    font-size: 3.5rem;
-    color: blue;
-    background-color: whitesmoke;
-    opacity: 0.5;
-    padding: 10px;
+  font-size: 3.5rem;
+  color: blue;
+  background-color: whitesmoke;
+  opacity: 0.5;
+  padding: 10px;
 }
 
 .titleDiv h2 {
-    font-size: 1.5rem;
-    padding: 30px 0 30px 10px;
-    line-height: 40px;
+  font-size: 1.5rem;
+  padding: 30px 0 30px 10px;
+  line-height: 40px;
 }
 
 .titleDiv .buttonDiv {
-    display: flex;
-    justify-content: center;
-    gap: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 40px;
 }
 
 .buttonDiv button {
-    width: 7rem;
-    height: 3rem;
-    font-size: 1.5rem;
-    border: none;
-    border-radius: 20px;
-    background-color: rgb(100, 100, 236);
-    cursor: pointer;
+  width: 7rem;
+  height: 3rem;
+  font-size: 1.5rem;
+  border: none;
+  border-radius: 20px;
+  background-color: rgb(100, 100, 236);
+  cursor: pointer;
 }
 
 .buttonDiv button:nth-child(2) {
-    color: red;
-    background-color: whitesmoke;
-    border: 1px solid;
-    opacity: 0.5;
+  color: red;
+  background-color: whitesmoke;
+  border: 1px solid;
+  opacity: 0.5;
 }
 
 dialog {
-    overflow: hidden;
+  overflow: hidden;
 }
-

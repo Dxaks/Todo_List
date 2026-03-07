@@ -3,78 +3,74 @@ import { allProject } from "../app/project";
 import { cancelButton, clearDiv } from "../app/utils/utilities";
 import { mySvgs } from "../assets/svgs/svg";
 
-
 export const renderProjectList = () => {
+  clearDiv(".content");
 
-    clearDiv('.content');
+  const projectDiv = document.createElement("div");
+  projectDiv.className = "projectDiv";
 
-    const projectDiv = document.createElement('div');
-    projectDiv.className = 'projectDiv';
+  const addSvgDiv = document.createElement("div");
+  addSvgDiv.className = "addSvgDiv";
+  addSvgDiv.innerHTML = mySvgs.addIcon;
+  projectDiv.appendChild(addSvgDiv);
 
-    const addSvgDiv = document.createElement('div');
-    addSvgDiv.className = 'addSvgDiv';
-    addSvgDiv.innerHTML = mySvgs.addIcon;
-    projectDiv.appendChild(addSvgDiv);
-    
-    const projectListDiv = document.createElement('div');
-    projectListDiv.className = 'projectListDiv';
-    
-    const projectHeader = document.createElement('ul');
-    projectHeader.className = 'projectHeader'
-    
-    for (const list of Object.values(allProject)) {
-        const project = document.createElement('li')
-        project.className = 'projectList';
-        project.textContent = list.name;
-        projectHeader.appendChild(project);
-    }
+  const projectListDiv = document.createElement("div");
+  projectListDiv.className = "projectListDiv";
 
-    projectListDiv.appendChild(projectHeader);
-    projectDiv.appendChild(projectListDiv);
-    const content = document.querySelector('.content')
-    content.appendChild(projectDiv);
+  const projectHeader = document.createElement("ul");
+  projectHeader.className = "projectHeader";
 
-//    **************** dialog container ************** //
+  for (const list of Object.values(allProject)) {
+    const project = document.createElement("li");
+    project.className = "projectList";
+    project.textContent = list.name;
+    projectHeader.appendChild(project);
+  }
 
-    const dialog = document.createElement('dialog');
-    const projectForm = document.createElement('form');
-    projectForm.setAttribute('method', 'dialog');
+  projectListDiv.appendChild(projectHeader);
+  projectDiv.appendChild(projectListDiv);
+  const content = document.querySelector(".content");
+  content.appendChild(projectDiv);
 
-    const inputContainer = document.createElement('div')
-    inputContainer.className = 'inputContainer';
+  //    **************** dialog container ************** //
 
-    const label = document.createElement('label');
-    label.setAttribute('for', 'inputField');
-    const input = document.createElement('input');
-    input.setAttribute('id', 'inputField');
-    input.setAttribute('type', 'text');
-    const inputButton = document.createElement('button');
-    inputButton.className = 'saveButton'
-    inputButton.textContent = 'save';
-    const cancel = document.createElement('div')
-    cancel.className = 'cancelDialog';
-    cancel.innerHTML = mySvgs.closeMenu;
+  const dialog = document.createElement("dialog");
+  const projectForm = document.createElement("form");
+  projectForm.setAttribute("method", "dialog");
 
-    inputContainer.appendChild(label); 
-    inputContainer.appendChild(input);
-    inputContainer.appendChild(inputButton);
+  const inputContainer = document.createElement("div");
+  inputContainer.className = "inputContainer";
 
-    projectForm.appendChild(inputContainer);
-    projectForm.appendChild(cancel);
+  const label = document.createElement("label");
+  label.setAttribute("for", "inputField");
+  const input = document.createElement("input");
+  input.setAttribute("id", "inputField");
+  input.setAttribute("type", "text");
+  const inputButton = document.createElement("button");
+  inputButton.className = "saveButton";
+  inputButton.textContent = "save";
+  const cancel = document.createElement("div");
+  cancel.className = "cancelDialog";
+  cancel.innerHTML = mySvgs.closeMenu;
 
-    dialog.appendChild(projectForm);
-    projectListDiv.appendChild(dialog);
+  inputContainer.appendChild(label);
+  inputContainer.appendChild(input);
+  inputContainer.appendChild(inputButton);
 
-    cancelButton('.content', 'projectList');
-}
+  projectForm.appendChild(inputContainer);
+  projectForm.appendChild(cancel);
 
+  dialog.appendChild(projectForm);
+  projectListDiv.appendChild(dialog);
+
+  cancelButton(".content", "projectList");
+};
 
 export const inputSaver = () => {
-        const input = document.getElementById('inputField');
-        const inputValue = input.value;
-        if (!inputValue) {
-            return
-        }
-       return inputValue;
-}
-
+  const input = document.getElementById("inputField");
+  const inputValue = input.value;
+  if (!inputValue) {
+    return;
+  }
+  return inputValue;
+};
